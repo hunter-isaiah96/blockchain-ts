@@ -40,13 +40,13 @@ export default class BlockChain {
 
     proofOfWork = (previousBlockHash:string, currentBlockData:Transaction[]) => {
         let nonce = 0
-        let lastHash = ''
-        while(!lastHash.startsWith('0000')) {
-            lastHash = this.hashBlock(previousBlockHash, currentBlockData, nonce)
+        let hash = this.hashBlock(previousBlockHash, currentBlockData, nonce)
+        while(hash.substring(0, 4) !== '0000') {
+            
             nonce++
         }
         console.log('Done')
-        return lastHash
+        return hash
     }
 
 }
