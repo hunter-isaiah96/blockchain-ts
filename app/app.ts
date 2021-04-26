@@ -1,24 +1,23 @@
-import express from 'express'
+import Block from './Blockchain/models/Block'
 import BlockChain from './Blockchain/BlockChain'
-import Transaction from './Blockchain/models/Transaction'
+import blockchainRoutes from './router/BlockChain.route'
+import express from 'express'
+import miningRoutes from './router/Mine.route'
+import transactionRoutes from './router/Transaction.route'
 
+// import Transaction from './Blockchain/models/Transaction'
+const port = process.argv
 const app = express()
 
-let previousBlockHash = 'amsdoaio21n3o'
+const crypto: BlockChain = new BlockChain()
 
-const crypto = new BlockChain()
+app.use(express.urlencoded({ extended: false, limit: '20mb' }))
 
-const currentBlockData: Transaction[] = [
-  {
-    amount: 10,
-    sender: '12das',
-    recipient: '21d1'
-  },
-  {
-    amount: 15,
-    sender: '21d1',
-    recipient: '12das'
-  },
-]
-const nonce = 100;
-console.log(crypto.hashBlock(previousBlockHash, currentBlockData, nonce))
+app.use('/api/blockchain', blockchainRoutes(crypto))
+app.use('/api/transaction', transactionRoutes(crypto))
+app.use('/api/mine', miningRoutes(crypto))
+// app.use('/api/mining', mining)
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
