@@ -3,7 +3,7 @@
   "scripts": {
     "start:build": "tsc -w",
     "start:run": "nodemon build/app.js",
-    "start": "concurrently npm:start:* --port=3000",
+    "start": "concurrently npm:start:*",
     "node_1": "nodemon --watch dev -e js app/app.js 3001"
   },
   "dependencies": {
