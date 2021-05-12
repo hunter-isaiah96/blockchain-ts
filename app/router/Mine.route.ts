@@ -18,7 +18,7 @@ export default (blockchain: BlockChain) => {
       nonce
     )
 
-    blockchain.createNewTransaction(12.5, '00', blockchain.nodeAddress)
+    blockchain.createNewTransaction(12.5, '00', blockchain.getNodeAddress())
 
     const newBlock = blockchain.createNewBlock(
       nonce,
